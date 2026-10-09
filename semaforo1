@@ -1,0 +1,47 @@
+from machine import Pin
+import utime
+
+# Pin GPIO 2 configurado como salida digital para el LED Rojo del Semáforo 1
+rojo_1 = Pin(10, Pin.OUT)
+amarillo_1 = Pin(11, Pin.OUT)
+verde_1 = Pin(12, Pin.OUT)
+
+# Pin GPIO 5 configurado como salida digital para el LED Rojo del Semáforo 2
+rojo_2 = Pin(21, Pin.OUT)
+amarillo_2 = Pin(20, Pin.OUT)
+verde_2 = Pin(19, Pin.OUT)
+
+# Función para apagar absolutamente todos los LEDs y garantizar un inicio limpio
+def apagar_todos():
+    # Apagamos los 3 LEDs del Semáforo 1
+    rojo_1.value(0)
+    amarillo_1.value(0)
+    verde_1.value(0)
+    
+    # Apagamos los 3 LEDs del Semáforo 2
+    rojo_2.value(0)
+    amarillo_2.value(0)
+    verde_2.value(0)
+
+# Iniciamos el ciclo infinito de operación de la intersección
+while True:
+    apagar_todos()
+    
+    verde_1.value(1)
+    rojo_2.value(1)
+    utime.sleep(5)
+   
+    apagar_todos()
+    amarillo_1.value(1)
+    rojo_2.value(1)
+    utime.sleep(2)
+    
+    apagar_todos()
+    rojo_1.value(1)
+    verde_2.value(1)
+    utime.sleep(5)
+    
+    apagar_todos()
+    rojo_1.value(1)
+    amarillo_2.value(1)
+    utime.sleep(2)
